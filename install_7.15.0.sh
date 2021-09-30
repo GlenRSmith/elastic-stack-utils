@@ -21,6 +21,7 @@ echo "discovery.type: single-node" >> config/elasticsearch.yml
 echo "path.data: /var/log/elasticsearch/v7.15" >> config/elasticsearch.yml
 echo "cluster.name: v715" >> config/elasticsearch.yml
 echo "bootstrap.memory_lock: true" >> config/elasticsearch.yml
+echo "network.host: 10.0.0.120" >> config/elasticsearch.yml
 echo "http.port: 9715" >> config/elasticsearch.yml
 echo "action.destructive_requires_name: true" >> config/elasticsearch.yml
 
