@@ -17,7 +17,6 @@ tar -xzf kibana-7.15.0-linux-x86_64.tar.gz
 echo "configure elasticsearch"
 cd elasticsearch-7.15.0
 echo "node.name: node-solo" >> config/elasticsearch.yml
-echo "path.data: /var/lib/elasticsearch/v7.15" >> config/elasticsearch.yml
 echo "path.data: /var/log/elasticsearch/v7.15" >> config/elasticsearch.yml
 echo "cluster.name: v715" >> config/elasticsearch.yml
 echo "bootstrap.memory_lock: true" >> config/elasticsearch.yml
