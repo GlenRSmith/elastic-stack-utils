@@ -17,6 +17,7 @@ tar -xzf kibana-7.15.0-linux-x86_64.tar.gz
 echo "configure elasticsearch"
 cd elasticsearch-7.15.0
 echo "node.name: node-solo" >> config/elasticsearch.yml
+echo "discovery.type: single-node" >> config/elasticsearch.yml
 echo "path.data: /var/log/elasticsearch/v7.15" >> config/elasticsearch.yml
 echo "cluster.name: v715" >> config/elasticsearch.yml
 echo "bootstrap.memory_lock: true" >> config/elasticsearch.yml
@@ -30,5 +31,6 @@ echo "configure kibana"
 pushd ~/elastic-stack
 cd kibana-7.15.0-linux-x86_64
 echo "server.port: 5715" >> config/kibana.yml
+echo "server.host: 10.0.0.120" >> config/kibana.yml
 echo "server.name: Kibana.7.15" >> config/kibana.yml
-echo "elasticsearch.hosts: ["http://localhost:9715"]" >> config/kibana.yml
+echo "elasticsearch.hosts: ["http://10.0.0.120:9715"]" >> config/kibana.yml
