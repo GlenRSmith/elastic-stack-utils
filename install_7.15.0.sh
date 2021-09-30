@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "create required directories"
 sudo mkdir /var/lib/elasticsearch/v7.15

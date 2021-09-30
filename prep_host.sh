@@ -1,5 +1,4 @@
-#!/bin/sh
-# ./sudo prep_host.sh
+#!/bin/bash
 # Host preparation
 sudo mkdir /var/lib/elasticsearch
 sudo mkdir /var/log/elasticsearch
