@@ -24,6 +24,7 @@ echo "bootstrap.memory_lock: true" >> config/elasticsearch.yml
 echo "network.host: 10.0.0.120" >> config/elasticsearch.yml
 echo "http.port: 9715" >> config/elasticsearch.yml
 echo "action.destructive_requires_name: true" >> config/elasticsearch.yml
+echo "xpack.security.enabled: true" >> config/elasticsearch.yml
 
 popd
 cp custom.jvm.options.yml ~/elastic-stack/elasticsearch-7.15.0/config/jvm.options.d/custom.yml
@@ -34,4 +35,5 @@ cd kibana-7.15.0-linux-x86_64
 echo "server.port: 5715" >> config/kibana.yml
 echo "server.host: 10.0.0.120" >> config/kibana.yml
 echo "server.name: Kibana.7.15" >> config/kibana.yml
-echo "elasticsearch.hosts: ["http://10.0.0.120:9715"]" >> config/kibana.yml
+echo "elasticsearch.hosts: \[\"http://10.0.0.120:9715\"\]" >> config/kibana.yml
+echo "elasticsearch.username: \"kibana_system\"" >> config/kibana.yml

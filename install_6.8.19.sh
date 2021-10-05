@@ -25,6 +25,7 @@ echo "bootstrap.memory_lock: true" >> config/elasticsearch.yml
 echo "network.host: 10.0.0.120" >> config/elasticsearch.yml
 echo "http.port: 9608" >> config/elasticsearch.yml
 echo "action.destructive_requires_name: true" >> config/elasticsearch.yml
+echo "xpack.security.enabled: true" >> config/elasticsearch.yml
 
 popd
 cat custom.jvm.options.yml >> ~/elastic-stack/elasticsearch-6.8.19/config/jvm.options

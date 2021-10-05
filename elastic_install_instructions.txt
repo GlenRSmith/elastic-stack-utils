@@ -1,0 +1,68 @@
+# Elasticsearch & Kibana installation steps for debian package.
+
+See: https://www.elastic.co/guide/en/elasticsearch/reference/7.14/deb.html
+
+- configure package installer to trust and use elastic repo, install from there
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt-get update && sudo apt-get install elasticsearch
+
+- update configuration files
+# append to /etc/elasticsearch/elasticsearch.yml
+cluster.name: cluster name the same on each node
+node.name: unique to each node
+bootstrap.memory_lock: true
+network.host: IP address of the host
+discovery.seed_hosts: ["ip addresses of all hosts"]
+cluster.initial_master_nodes: ["ip addresses of all hosts"]
+action.destructive_requires_name: true
+path.data: ?
+path.logs: ?
+
+- create option overrides /etc/elasticsearch/jvm.options.d/custom.options
+-Xms(half of host RAM)g
+-Xmx(half of host RAM)g
+XX:HeapDumpPath=?
+
+- /etc/security/limits.conf
+# worked without changing! Otherwise elasticsearch hard MEMLOCK unlimited
+
+- service override file: /usr/lib/systemd/system/elasticsearch.service.d/override.conf
+sudo mkdir /usr/lib/systemd/system/elasticsearch.service.d
+sudo vim /usr/lib/systemd/system/elasticsearch.service.d/override.conf
+[Service]
+LimitMEMLOCK=infinity
+
+- apply service changes, set to always start the service, start the service
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo systemctl start elasticsearch.service
+
+## Kibana installation steps:
+See: https://www.elastic.co/guide/en/kibana/current/deb.html
+- configure package installer to trust and use elastic repo, install from there
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt-get update && sudo apt-get install kibana
+
+- update configuration file /etc/kibana/kibana.yml
+server.port:
+server.host:
+server.name:
+elasticsearch.hosts:  ["http://localhost:9200", ""]
+kibana.index: ""
+
+# see default kibana.yml when you go to enable security
+
+- apply service changes, set to always start the service, start the service
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable kibana.service
+sudo systemctl start kibana.service
+
+## Logstash installation steps on Kibana instance:
+
+See: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
+Key and repo stuff already set up.
+sudo apt-get update && sudo apt-get install logstash
